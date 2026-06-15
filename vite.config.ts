@@ -4,6 +4,8 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
+  // GitHub Pages serves from /conversor-moeda-React/ — must match the repo name
+  base: '/conversor-moeda-React/',
   resolve: {
     // Prefer .tsx/.ts over .js so legacy files don't shadow new ones
     extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
