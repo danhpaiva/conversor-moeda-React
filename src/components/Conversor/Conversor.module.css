@@ -122,20 +122,18 @@
 
 .select {
   flex: 1;
-  padding: 0.625rem 0.5rem 0.625rem 0;
+  /* enough width to show the code (e.g. "USD") without overflow */
+  min-width: 0;
+  max-width: 100%;
+  padding: 0.625rem 0.25rem 0.625rem 0;
   border: none;
-  background: transparent;
-  font-size: 0.9rem;
+  background: var(--color-bg);
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-text);
   cursor: pointer;
   outline: none;
-  appearance: none;
-  min-width: 0;
-  /* truncate long currency names */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  /* keep native select arrow so the field is clearly interactive */
 }
 
 /* Swap button */
