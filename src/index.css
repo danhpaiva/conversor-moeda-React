@@ -1,13 +1,79 @@
-body {
+/* ── Design Tokens ─────────────────────────────────────────── */
+:root {
+  --color-primary:        #2563eb;
+  --color-primary-dark:   #1d4ed8;
+  --color-primary-alpha:  rgba(37, 99, 235, 0.12);
+  --color-primary-bg:     rgba(37, 99, 235, 0.06);
+  --color-primary-border: rgba(37, 99, 235, 0.2);
+
+  --color-text:            #111827;
+  --color-text-muted:      #6b7280;
+  --color-text-placeholder:#9ca3af;
+
+  --color-bg:          #f9fafb;
+  --color-surface:     #ffffff;
+  --color-surface-alt: #f3f4f6;
+  --color-border:      #e5e7eb;
+  --color-shadow:      rgba(0, 0, 0, 0.08);
+
+  --color-error:        #dc2626;
+  --color-error-bg:     rgba(220, 38, 38, 0.06);
+  --color-error-border: rgba(220, 38, 38, 0.2);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary:        #3b82f6;
+    --color-primary-dark:   #2563eb;
+    --color-primary-alpha:  rgba(59, 130, 246, 0.15);
+    --color-primary-bg:     rgba(59, 130, 246, 0.08);
+    --color-primary-border: rgba(59, 130, 246, 0.25);
+
+    --color-text:            #f9fafb;
+    --color-text-muted:      #9ca3af;
+    --color-text-placeholder:#6b7280;
+
+    --color-bg:          #0f172a;
+    --color-surface:     #1e293b;
+    --color-surface-alt: #0f172a;
+    --color-border:      #334155;
+    --color-shadow:      rgba(0, 0, 0, 0.4);
+
+    --color-error:        #f87171;
+    --color-error-bg:     rgba(248, 113, 113, 0.08);
+    --color-error-border: rgba(248, 113, 113, 0.25);
+  }
+}
+
+/* ── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Oxygen, Ubuntu, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+/* ── Accessibility ─────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
