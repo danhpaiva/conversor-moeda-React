@@ -9,11 +9,8 @@ export default function App() {
         <p className={styles.subtitle}>Cotações diárias via múltiplas fontes abertas</p>
       </header>
 
-      <main className={styles.grid}>
+      <main className={styles.main}>
         <Conversor defaultFrom="USD" defaultTo="BRL" />
-        <Conversor defaultFrom="BRL" defaultTo="USD" />
-        <Conversor defaultFrom="EUR" defaultTo="BRL" />
-        <Conversor defaultFrom="BRL" defaultTo="EUR" />
       </main>
 
       <footer className={styles.footer}>

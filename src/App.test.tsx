@@ -5,9 +5,7 @@ import App from './App.tsx'
 describe('App', () => {
   it('renderiza o título principal', () => {
     render(<App />)
-    expect(
-      screen.getByRole('heading', { name: /conversor de moedas/i }),
-    ).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /conversor de moedas/i })).toBeInTheDocument()
   })
 
   it('renderiza o subtítulo', () => {
@@ -15,18 +13,14 @@ describe('App', () => {
     expect(screen.getByText(/cotações diárias/i)).toBeInTheDocument()
   })
 
-  it('renderiza exatamente 4 cards de conversão', () => {
+  it('renderiza exatamente 1 card de conversão', () => {
     render(<App />)
-    const cards = screen.getAllByRole('article')
-    expect(cards).toHaveLength(4)
+    expect(screen.getAllByRole('article')).toHaveLength(1)
   })
 
-  it('renderiza os pares de moeda padrão', () => {
+  it('par padrão é USD → BRL', () => {
     render(<App />)
     expect(screen.getByRole('article', { name: /USD para BRL/i })).toBeInTheDocument()
-    expect(screen.getByRole('article', { name: /BRL para USD/i })).toBeInTheDocument()
-    expect(screen.getByRole('article', { name: /EUR para BRL/i })).toBeInTheDocument()
-    expect(screen.getByRole('article', { name: /BRL para EUR/i })).toBeInTheDocument()
   })
 
   it('renderiza o rodapé com link para a API', () => {
