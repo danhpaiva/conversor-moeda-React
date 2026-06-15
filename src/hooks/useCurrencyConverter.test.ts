@@ -36,7 +36,7 @@ describe('useCurrencyConverter', () => {
   // Mesma moeda
   describe('conversão com mesma moeda', () => {
     it('retorna taxa 1 sem chamar fetch', async () => {
-      const fetchSpy = vi.spyOn(global, 'fetch')
+      const fetchSpy = vi.spyOn(globalThis, 'fetch')
       const { result } = renderHook(() => useCurrencyConverter())
 
       await act(async () => {
@@ -50,7 +50,7 @@ describe('useCurrencyConverter', () => {
     })
 
     it('funciona com qualquer moeda igual', async () => {
-      vi.spyOn(global, 'fetch')
+      vi.spyOn(globalThis, 'fetch')
       const { result } = renderHook(() => useCurrencyConverter())
 
       await act(async () => {
@@ -64,7 +64,7 @@ describe('useCurrencyConverter', () => {
   // Sucesso com CDN
   describe('conversão bem-sucedida via CDN', () => {
     it('busca cotação e calcula valor convertido', async () => {
-      vi.spyOn(global, 'fetch').mockResolvedValue(makeRateResponse('usd', 'brl', 5.25))
+      vi.spyOn(globalThis, 'fetch').mockResolvedValue(makeRateResponse('usd', 'brl', 5.25))
       const { result } = renderHook(() => useCurrencyConverter())
 
       await act(async () => {
@@ -77,7 +77,7 @@ describe('useCurrencyConverter', () => {
     })
 
     it('resultado inclui um timestamp do tipo Date', async () => {
-      vi.spyOn(global, 'fetch').mockResolvedValue(makeRateResponse('usd', 'brl', 5.0))
+      vi.spyOn(globalThis, 'fetch').mockResolvedValue(makeRateResponse('usd', 'brl', 5.0))
       const { result } = renderHook(() => useCurrencyConverter())
 
       await act(async () => {
@@ -125,7 +125,7 @@ describe('useCurrencyConverter', () => {
   // Erro
   describe('tratamento de erro', () => {
     it('define status error quando CDN retorna status não-ok', async () => {
-      vi.spyOn(global, 'fetch')
+      vi.spyOn(globalThis, 'fetch')
         .mockRejectedValueOnce(new Error('offline'))
         .mockResolvedValueOnce(makeResponse({}, false))
       const { result } = renderHook(() => useCurrencyConverter())
@@ -140,7 +140,7 @@ describe('useCurrencyConverter', () => {
 
     it('não define error para AbortError (requisição cancelada)', async () => {
       const abortError = new DOMException('Aborted', 'AbortError')
-      vi.spyOn(global, 'fetch').mockRejectedValue(abortError)
+      vi.spyOn(globalThis, 'fetch').mockRejectedValue(abortError)
       const { result } = renderHook(() => useCurrencyConverter())
 
       await act(async () => {
@@ -156,7 +156,7 @@ describe('useCurrencyConverter', () => {
   describe('estado de loading', () => {
     it('fica em loading enquanto a requisição está em andamento', async () => {
       let resolveFetch!: (r: Response) => void
-      vi.spyOn(global, 'fetch').mockReturnValue(
+      vi.spyOn(globalThis, 'fetch').mockReturnValue(
         new Promise<Response>((resolve) => {
           resolveFetch = resolve
         }),
@@ -180,7 +180,7 @@ describe('useCurrencyConverter', () => {
   // Reset
   describe('reset', () => {
     it('limpa result, error e volta para idle', async () => {
-      vi.spyOn(global, 'fetch').mockResolvedValue(makeRateResponse('usd', 'brl', 5.0))
+      vi.spyOn(globalThis, 'fetch').mockResolvedValue(makeRateResponse('usd', 'brl', 5.0))
       const { result } = renderHook(() => useCurrencyConverter())
 
       await act(async () => {
@@ -199,7 +199,7 @@ describe('useCurrencyConverter', () => {
 
     it('cancela requisição em andamento ao resetar', () => {
       let resolveFetch!: (r: Response) => void
-      vi.spyOn(global, 'fetch').mockReturnValue(
+      vi.spyOn(globalThis, 'fetch').mockReturnValue(
         new Promise<Response>((resolve) => {
           resolveFetch = resolve
         }),
