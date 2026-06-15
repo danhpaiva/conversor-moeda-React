@@ -99,7 +99,7 @@ describe('Conversor', () => {
   describe('estado de loading', () => {
     it('exibe spinner enquanto a requisição está em andamento', async () => {
       let resolveFetch!: (r: Response) => void
-      vi.spyOn(global, 'fetch').mockReturnValue(
+      vi.spyOn(globalThis, 'fetch').mockReturnValue(
         new Promise<Response>((r) => {
           resolveFetch = r
         }),
@@ -124,7 +124,7 @@ describe('Conversor', () => {
   // Resultado bem-sucedido
   describe('resultado de conversão', () => {
     it('exibe o valor convertido após sucesso', async () => {
-      vi.spyOn(global, 'fetch').mockResolvedValue(makeRateResponse('usd', 'brl', 5.0))
+      vi.spyOn(globalThis, 'fetch').mockResolvedValue(makeRateResponse('usd', 'brl', 5.0))
 
       const user = userEvent.setup()
       render(<Conversor defaultFrom="USD" defaultTo="BRL" />)
@@ -138,7 +138,7 @@ describe('Conversor', () => {
     })
 
     it('exibe a taxa unitária no formato correto', async () => {
-      vi.spyOn(global, 'fetch').mockResolvedValue(makeRateResponse('usd', 'brl', 5.25))
+      vi.spyOn(globalThis, 'fetch').mockResolvedValue(makeRateResponse('usd', 'brl', 5.25))
 
       const user = userEvent.setup()
       render(<Conversor defaultFrom="USD" defaultTo="BRL" />)
@@ -152,7 +152,7 @@ describe('Conversor', () => {
     })
 
     it('exibe a hora da cotação', async () => {
-      vi.spyOn(global, 'fetch').mockResolvedValue(makeRateResponse('usd', 'brl', 5.0))
+      vi.spyOn(globalThis, 'fetch').mockResolvedValue(makeRateResponse('usd', 'brl', 5.0))
 
       const user = userEvent.setup()
       render(<Conversor defaultFrom="USD" defaultTo="BRL" />)
@@ -166,7 +166,7 @@ describe('Conversor', () => {
     })
 
     it('esconde o resultado ao digitar no campo novamente', async () => {
-      vi.spyOn(global, 'fetch').mockResolvedValue(makeRateResponse('usd', 'brl', 5.0))
+      vi.spyOn(globalThis, 'fetch').mockResolvedValue(makeRateResponse('usd', 'brl', 5.0))
 
       const user = userEvent.setup()
       render(<Conversor defaultFrom="USD" defaultTo="BRL" />)
@@ -187,7 +187,7 @@ describe('Conversor', () => {
   // Erro
   describe('estado de erro', () => {
     it('exibe mensagem de erro quando o fetch falha', async () => {
-      vi.spyOn(global, 'fetch')
+      vi.spyOn(globalThis, 'fetch')
         .mockRejectedValueOnce(new Error('network'))
         .mockResolvedValueOnce({ ok: false, status: 500 } as Response)
 
@@ -205,7 +205,7 @@ describe('Conversor', () => {
     })
 
     it('esconde o erro ao inverter as moedas', async () => {
-      vi.spyOn(global, 'fetch')
+      vi.spyOn(globalThis, 'fetch')
         .mockRejectedValueOnce(new Error('network'))
         .mockResolvedValueOnce({ ok: false, status: 500 } as Response)
 
@@ -228,7 +228,7 @@ describe('Conversor', () => {
   // Validação de input
   describe('validação de input', () => {
     it('não chama fetch com valor negativo', async () => {
-      const fetchSpy = vi.spyOn(global, 'fetch')
+      const fetchSpy = vi.spyOn(globalThis, 'fetch')
       const user = userEvent.setup()
       render(<Conversor />)
 
@@ -242,7 +242,7 @@ describe('Conversor', () => {
     })
 
     it('aceita vírgula como separador decimal', async () => {
-      vi.spyOn(global, 'fetch').mockResolvedValue(makeRateResponse('usd', 'brl', 5.0))
+      vi.spyOn(globalThis, 'fetch').mockResolvedValue(makeRateResponse('usd', 'brl', 5.0))
 
       const user = userEvent.setup()
       render(<Conversor defaultFrom="USD" defaultTo="BRL" />)
